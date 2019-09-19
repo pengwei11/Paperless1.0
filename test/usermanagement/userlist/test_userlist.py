@@ -32,7 +32,7 @@ import os
 import sys
 import random
 
-logger = Logger('Test_UserList').getlog()
+logger = Logger('logger').getlog()
 
 
 class Test_UserList(unittest.TestCase):
@@ -87,6 +87,7 @@ class Test_UserList(unittest.TestCase):
         try:
             logger.info('开始执行用例%s' % sys._getframe().f_code.co_name)
             self.addimg()
+            time.sleep(1)
             self.assertEqual('帐号', self.b.by_find_element('xpath',
                                                           '//*[@id="wrap"]/div/div[3]/div[2]/div/div[2]/div/div/div[2]/div[1]/div[1]/div/table/tbody/tr/td[4]/div/span[1]').text,
                              '帐号字段不存在')
@@ -566,6 +567,7 @@ class Test_UserList(unittest.TestCase):
             self.b.by_find_element('name', 'password').send_keys('123456')
             self.b.by_find_element('name', 'username').send_keys('测试用户')
             self.b.by_find_element('xpath', '//*[@id="layui-layer1"]/div[2]/form/div[2]/button[1]').click()  # 点击保存
+            self.addimg()
             # 账号框输入特殊字符
             self.assertEqual(self.b.by_find_element('css', '.layui-layer-padding').text, '该帐号已存在！', '账号同名')
             logger.info('用例%s执行成功' % sys._getframe().f_code.co_name)
@@ -585,7 +587,7 @@ class Test_UserList(unittest.TestCase):
             account = self.b.by_find_element('name', 'password').get_attribute('value')
             logger.info(account)
             # 断言账号是否超出20个字符的长度
-            self.assertTrue(len(account) == 20, '长度超出20字符限制')
+            self.assertTrue(len(account) == 18, '长度超出18字符限制')
 
             # 清空输入框
             self.b.by_find_element('name', 'password').clear()
@@ -595,7 +597,7 @@ class Test_UserList(unittest.TestCase):
             self.addimg()
             account = self.b.by_find_element('css', '.tooltip-content').text
             # 断言账号是否超出20个字符的长度
-            self.assertTrue(account == '输入内容长度必须介于2和20之间', '长度低于2字符限制无提示')
+            self.assertTrue(account == '输入内容长度必须介于6和18之间', '长度低于2字符限制无提示')
             logger.info('用例%s执行成功' % sys._getframe().f_code.co_name)
         except:
             logger.info('用例%s执行失败' % sys._getframe().f_code.co_name)
@@ -611,7 +613,7 @@ class Test_UserList(unittest.TestCase):
             self.b.by_find_element('name', 'password').send_keys('admin%')
             self.b.by_find_element('name', 'password').click()
             self.addimg()
-            self.assertEqual(self.b.by_find_element('css', '.tooltip-content').text, '无效密码：请输入英文字母、数字或其组合，且不包含空格等特殊字符',
+            self.assertEqual(self.b.by_find_element('css', '.tooltip-content').text, '无效密码：请输入英文字母数字组合，且不包含空格等特殊字符',
                              '输入字符包含特殊字符，无提示')
             self.b.by_find_element('name', 'password').clear()
             # 账号框输入空格字符
@@ -620,6 +622,7 @@ class Test_UserList(unittest.TestCase):
             self.addimg()
             self.assertEqual(self.b.by_find_element('css', '.tooltip-content').text, '无效密码：请输入英文字母数字组合，且不包含空格等特殊字符',
                              '输入包含空格，无提示')
+            self.b.by_find_element('name', 'password').clear()
             # 点击输入框，提示该输入项为必输项
             self.b.by_find_element('name', 'password').click()
             self.assertEqual(self.b.by_find_element('css', '.tooltip-content').text, '该输入项为必输项',
@@ -686,7 +689,7 @@ class Test_UserList(unittest.TestCase):
             radios.append(check)
             logger.info(radios)
             self.addimg()
-            self.assertTrue('管理员' and '秘书' and '普通用户' and '  z后勤人员' in radios, '用户类型错误')
+            self.assertTrue('管理员' and '秘书' and '普通用户' and '  后勤人员' in radios, '用户类型错误')
             logger.info('用例%s执行成功' % sys._getframe().f_code.co_name)
         except:
             logger.info('用例%s执行失败' % sys._getframe().f_code.co_name)
@@ -785,6 +788,7 @@ class Test_UserList(unittest.TestCase):
             self.b.by_find_element('name', 'username').send_keys('测试用户')
             self.b.by_find_element('name', 'salutatory').send_keys('123')
             self.b.by_find_element('css','form.add_meeting:nth-child(1) > div:nth-child(3) > button:nth-child(1)').click()
+            self.addimg()
             self.assertEqual(self.b.by_find_element('css', '.tooltip-content').text, '该输入项为必输项',
                              '账号输入为空，无提示')
             logger.info('用例%s执行成功' % sys._getframe().f_code.co_name)
@@ -804,6 +808,7 @@ class Test_UserList(unittest.TestCase):
             self.b.by_find_element('name', 'username').send_keys('测试用户')
             self.b.by_find_element('name', 'salutatory').send_keys('123')
             self.b.by_find_element('css','form.add_meeting:nth-child(1) > div:nth-child(3) > button:nth-child(1)').click()
+            self.addimg()
             self.assertEqual(self.b.by_find_element('css', '.tooltip-content').text, '该输入项为必输项',
                              '账号输入为空，无提示')
             logger.info('用例%s执行成功' % sys._getframe().f_code.co_name)
@@ -820,10 +825,11 @@ class Test_UserList(unittest.TestCase):
             # 输入用户名密码等数据
             self.b.by_find_element('name', 'account').send_keys('admin')
             self.b.by_find_element('name', 'password').send_keys('123456')
-            self.b.by_find_element('name', 'username').send_keys('测试用户')
+            self.b.by_find_element('name', 'username').send_keys('')
             self.b.by_find_element('name', 'salutatory').send_keys('123')
             # 点击确定
             self.b.by_find_element('css','form.add_meeting:nth-child(1) > div:nth-child(3) > button:nth-child(1)').click()
+            self.addimg()
             self.assertEqual(self.b.by_find_element('css', '.tooltip-content').text, '该输入项为必输项',
                              '账号输入为空，无提示')
             logger.info('用例%s执行成功' % sys._getframe().f_code.co_name)
@@ -871,6 +877,7 @@ class Test_UserList(unittest.TestCase):
             logger.info('开始执行用例%s' % sys._getframe().f_code.co_name)
             if self.b.isElementExist('xpath',
                                      '//*[@id="datagrid-row-r1-1-0"]/td[4]/div') == False:  # 判断列表内是否有用户，如果没有就创建用户
+                self.b.by_find_element('css', 'a.easyui-linkbutton:nth-child(1)').click()
                 # 输入正确用户名密码等数据
                 self.b.by_find_element('name', 'account').send_keys('admin22')
                 self.b.by_find_element('name', 'password').send_keys('123456')
@@ -880,7 +887,7 @@ class Test_UserList(unittest.TestCase):
                                        'form.add_meeting:nth-child(1) > div:nth-child(3) > button:nth-child(1)').click()
 
             # 获取第一条数据的账号信息
-            account1 = self.b.by_find_element('css','#datagrid-row-r1-2-0 > td:nth-child(1) > div > span').text
+            account = self.b.by_find_element('css','#datagrid-row-r1-1-0 > td:nth-child(4) > div').text
             # 点击第一条数据的选择框
             self.b.by_find_element('xpath','//*[@id="datagrid-row-r1-1-0"]/td[2]/div/input').click()
             self.addimg()
@@ -888,14 +895,303 @@ class Test_UserList(unittest.TestCase):
             self.b.by_find_element('xpath','//*[@id="common_operate"]/a[4]/span/span[1]').click()
             # 点击确定
             self.b.by_find_element('css','.layui-layer-btn0').click()
+            time.sleep(1)
             self.addimg()
             List = []
             for l in self.b.by_find_elements('css', '.datagrid-cell-c1-account'):  # 获取最后一页数据
                 List.append(l.text)
-            self.assertTrue(account1 in List,'删除失败')
+            self.assertFalse(account in List,'删除失败')
             logger.info('用例%s执行成功' % sys._getframe().f_code.co_name)
         except:
-            logger.info('用例%s执行失败' % sys._getframe().f_code.co_name)
+            logger.exception('用例%s执行失败' % sys._getframe().f_code.co_name)
+            raise
+
+
+    def test_yhlb_at_033(self):
+        """用户列表界面——顶部删除功能测试：所有用户删除"""
+        try:
+            logger.info('开始执行用例%s' % sys._getframe().f_code.co_name)
+            if self.b.isElementExist('xpath',
+                                     '//*[@id="datagrid-row-r1-1-0"]/td[4]/div') == False:  # 判断列表内是否有用户，如果没有就创建用户
+                # 输入正确用户名密码等数据
+                for i in range(1, 10):
+                    if i % 2:
+                        self.b.by_find_element('css', 'a.easyui-linkbutton:nth-child(1)').click()
+                        self.b.by_find_element('name', 'account').send_keys('admin%s' % i)
+                        self.b.by_find_element('name', 'password').send_keys('123456')
+                        self.b.by_find_element('name', 'username').send_keys('测试用户')
+                        self.b.by_find_element('xpath',
+                                               '//*[@id="layui-layer%s"]/div[2]/form/div[2]/button[1]' % i).click()
+                        time.sleep(1)
+                    else:
+                        continue
+
+            # 点击全选框
+            self.b.by_find_element('css','.datagrid-header-check').click()
+            self.addimg()
+            # 点击顶部删除按钮
+            self.b.by_find_element('xpath','//*[@id="common_operate"]/a[4]/span/span[1]').click()
+            # 点击确定
+            self.b.by_find_element('css','.layui-layer-btn0').click()
+            time.sleep(1)
+            self.addimg()
+            List = []
+            for l in self.b.by_find_elements('css', '.datagrid-cell-c1-account'):  # 获取最后一页数据
+                List.append(l.text)
+            List.remove('帐号')
+            self.assertTrue(len(List) == 0,'全选删除失败')
+            logger.info('用例%s执行成功' % sys._getframe().f_code.co_name)
+        except:
+            logger.exception('用例%s执行失败' % sys._getframe().f_code.co_name)
+            raise
+
+    def test_yhlb_at_034(self):
+        """用户列表界面——顶部删除功能测试：无任何数据"""
+        try:
+            logger.info('开始执行用例%s' % sys._getframe().f_code.co_name)
+            if self.b.isElementExist('xpath',
+                                     '//*[@id="datagrid-row-r1-1-0"]/td[4]/div') == False:  # 判断列表内是否有用户，如果没有就创建用户
+                # 点击全选框
+                self.b.by_find_element('css','.datagrid-header-check').click()
+                # 点击顶部删除按钮
+                self.b.by_find_element('xpath','//*[@id="common_operate"]/a[4]/span/span[1]').click()
+                self.addimg()
+            # 断言提示框是否为请至少选择一个项
+            self.assertEqual(self.b.by_find_element('css', '.layui-layer-padding').text, '请至少选择一个项!', '未选中数据，点击删除无提示')
+            logger.info('用例%s执行成功' % sys._getframe().f_code.co_name)
+        except:
+            logger.exception('用例%s执行失败' % sys._getframe().f_code.co_name)
+            raise
+
+    def test_yhlb_at_035(self):
+        """用户列表界面——点击数据后的编辑按钮"""
+        try:
+            logger.info('开始执行用例%s' % sys._getframe().f_code.co_name)
+            if self.b.isElementExist('xpath',
+                                     '//*[@id="datagrid-row-r1-1-0"]/td[4]/div') == False:  # 判断列表内是否有用户，如果没有就创建用户
+                # 输入正确用户名密码等数据
+                    self.b.by_find_element('css', 'a.easyui-linkbutton:nth-child(1)').click()
+                    self.b.by_find_element('name', 'account').send_keys('admin1')
+                    self.b.by_find_element('name', 'password').send_keys('123456')
+                    self.b.by_find_element('name', 'username').send_keys('测试用户')
+                    self.b.by_find_element('xpath',
+                                               '//*[@id="layui-layer1"]/div[2]/form/div[2]/button[1]').click()
+            # 点击第一条数据后的编辑按钮
+            self.b.by_find_element('css','#datagrid-row-r1-2-0 > td:nth-child(7) > div > span > a:nth-child(1)').click()
+            self.addimg()
+            self.assertTrue(self.b.by_find_element('css','.layui-layer-title').text=='编辑用户','进入编辑页面失败')
+            logger.info('用例%s执行成功' % sys._getframe().f_code.co_name)
+        except:
+            logger.exception('用例%s执行失败' % sys._getframe().f_code.co_name)
+            raise
+
+
+    def test_yhlb_at_036(self):
+        """用户列表界面——编辑界面：输入框数据与数据列表一致（密码输入框为空）"""
+        try:
+            logger.info('开始执行用例%s' % sys._getframe().f_code.co_name)
+            if self.b.isElementExist('xpath',
+                                     '//*[@id="datagrid-row-r1-1-0"]/td[4]/div') == False:  # 判断列表内是否有用户，如果没有就创建用户
+                # 输入正确用户名密码等数据
+                    self.b.by_find_element('css', 'a.easyui-linkbutton:nth-child(1)').click()
+                    self.b.by_find_element('name', 'account').send_keys('admin1')
+                    self.b.by_find_element('name', 'password').send_keys('123456')
+                    self.b.by_find_element('name', 'username').send_keys('测试用户')
+                    self.b.by_find_element('xpath',
+                                               '//*[@id="layui-layer1"]/div[2]/form/div[2]/button[1]').click()
+
+            # 将第一条数据的内容存到list中
+            oldList = []
+            oldaccount = self.b.by_find_element('css','#datagrid-row-r1-1-0 > td:nth-child(4) > div').text
+            oldList.append(oldaccount)
+            oldusername = self.b.by_find_element('css','#datagrid-row-r1-2-0 > td:nth-child(1) > div > span').text
+            oldList.append(oldusername)
+            oldUnit = self.b.by_find_element('css','#datagrid-row-r1-2-0 > td:nth-child(2) > div > span').text
+            oldList.append(oldUnit)
+            oldDepartment = self.b.by_find_element('css', '#datagrid-row-r1-2-0 > td:nth-child(3) > div > span').text
+            oldList.append(oldDepartment)
+            oldPosition = self.b.by_find_element('css', '#datagrid-row-r1-2-0 > td:nth-child(4) > div > span').text
+            oldList.append(oldPosition)
+            oldGreeting = self.b.by_find_element('css', '#datagrid-row-r1-2-0 > td:nth-child(5) > div > span').text
+            oldList.append(oldGreeting)
+            oldType = self.b.by_find_element('css', '#datagrid-row-r1-2-0 > td:nth-child(6) > div > span').text
+            oldList.append(oldType)
+            for i in range(len(oldList)):
+                if oldList[i] == '-':
+                    oldList[i] = '全部'
+            # 点击第一条数据后的编辑按钮
+            self.b.by_find_element('css','#datagrid-row-r1-2-0 > td:nth-child(7) > div > span > a:nth-child(1)').click()
+            self.addimg()
+            # 将点击编辑框后的数据存到List中
+            newList = []
+            newaccount = self.b.by_find_element('css','#layui-layer1 > div.layui-layer-content > form > div.middle > div:nth-child(1) > div > input').get_attribute('value')
+            newList.append(newaccount)
+            newusername = self.b.by_find_element('css','#layui-layer1 > div.layui-layer-content > form > div.middle > div:nth-child(3) > div > input').get_attribute('value')
+            newList.append(newusername)
+            newUnit =  Select(self.b.by_find_element('css', '#layui-layer1 > div.layui-layer-content > form > div.middle > div:nth-child(4) > div > select')).all_selected_options[0].text
+            newList.append(newUnit)
+            newDepartment = Select(self.b.by_find_element('css', '#layui-layer1 > div.layui-layer-content > form > div.middle > div:nth-child(5) > div > select')).all_selected_options[0].text
+            newList.append(newDepartment)
+            newPosition = Select(self.b.by_find_element('css', '#layui-layer1 > div.layui-layer-content > form > div.middle > div:nth-child(6) > div > select')).all_selected_options[0].text
+            newList.append(newPosition)
+            newType = self.b.by_find_element('css', '#layui-layer1 > div.layui-layer-content > form > div.middle > div:nth-child(9) > div > textarea').get_attribute('value')
+            newList.append(newType)
+            newGreeting = self.b.by_find_elements('css', '#layui-layer1 > div.layui-layer-content > form > div.middle > div:nth-child(7) > div > span > input[type=radio]')
+            for g in newGreeting:
+                if g.is_selected():
+                    newList.append(g.get_attribute('value'))
+            for i in range(len(newList)):
+                if newList[i] == '0':
+                    newList[i] = '管理员'
+                elif newList[i] == '1':
+                    newList[i] = '秘书'
+                elif newList[i] == '2':
+                    newList[i] = '普通用户'
+            self.assertTrue(oldList == newList,'进入编辑,输入框数据与原数据不符')
+            logger.info('用例%s执行成功' % sys._getframe().f_code.co_name)
+        except:
+            logger.exception('用例%s执行失败' % sys._getframe().f_code.co_name)
+            raise
+
+
+    def test_yhlb_at_037(self):
+        """用户列表界面——编辑界面：修改账号"""
+        try:
+            logger.info('开始执行用例%s' % sys._getframe().f_code.co_name)
+            if self.b.isElementExist('xpath',
+                                     '//*[@id="datagrid-row-r1-1-0"]/td[4]/div') == False:  # 判断列表内是否有用户，如果没有就创建用户
+                # 输入正确用户名密码等数据
+                    self.b.by_find_element('css', 'a.easyui-linkbutton:nth-child(1)').click()
+                    self.b.by_find_element('name', 'account').send_keys('admin1')
+                    self.b.by_find_element('name', 'password').send_keys('123456')
+                    self.b.by_find_element('name', 'username').send_keys('测试用户')
+                    self.b.by_find_element('xpath',
+                                               '//*[@id="layui-layer1"]/div[2]/form/div[2]/button[1]').click()
+            # 点击第一条数据后的编辑按钮
+            self.b.by_find_element('css','#datagrid-row-r1-2-0 > td:nth-child(7) > div > span > a:nth-child(1)').click()
+            self.addimg()
+            # 清空账号数据
+            self.b.by_find_element('css','#layui-layer1 > div.layui-layer-content > form > div.middle > div:nth-child(1) > div > input').clear()
+            # 输入账号数据
+            self.b.by_find_element('css','#layui-layer1 > div.layui-layer-content > form > div.middle > div:nth-child(1) > div > input').send_keys('admin5')
+            self.addimg()
+            oldaccount = self.b.by_find_element('css',
+                                                '#layui-layer1 > div.layui-layer-content > form > div.middle > div:nth-child(1) > div > input').get_attribute(
+                'value')
+            # 点击确定
+            self.b.by_find_element('css','#layui-layer1 > div.layui-layer-content > form > div.bottom.clear > button.bottom_y.bottom_b3.fl').click()
+            self.addimg()
+            if self.b.by_find_element('css', '.layui-layer-padding').text == '该帐号已存在！':
+                self.assertTrue(self.b.by_find_element('css', '.layui-layer-padding').text == '该帐号已存在！','账号已存在，提示错误')
+            time.sleep(1)
+            newaccount = self.b.by_find_element('css','#datagrid-row-r1-1-0 > td:nth-child(4) > div').text
+            self.assertTrue(oldaccount == newaccount,'修改账号失败')
+            logger.info('用例%s执行成功' % sys._getframe().f_code.co_name)
+        except:
+            logger.exception('用例%s执行失败' % sys._getframe().f_code.co_name)
+            raise
+
+    def test_yhlb_at_038(self):
+        """用户列表界面——编辑界面：姓名"""
+        try:
+            logger.info('开始执行用例%s' % sys._getframe().f_code.co_name)
+            if self.b.isElementExist('xpath',
+                                     '//*[@id="datagrid-row-r1-1-0"]/td[4]/div') == False:  # 判断列表内是否有用户，如果没有就创建用户
+                # 输入正确用户名密码等数据
+                    self.b.by_find_element('css', 'a.easyui-linkbutton:nth-child(1)').click()
+                    self.b.by_find_element('name', 'account').send_keys('admin1')
+                    self.b.by_find_element('name', 'password').send_keys('123456')
+                    self.b.by_find_element('name', 'username').send_keys('测试用户')
+                    self.b.by_find_element('xpath',
+                                               '//*[@id="layui-layer1"]/div[2]/form/div[2]/button[1]').click()
+            # 点击第一条数据后的编辑按钮
+            self.b.by_find_element('css','#datagrid-row-r1-2-0 > td:nth-child(7) > div > span > a:nth-child(1)').click()
+            self.addimg()
+            # 清空姓名数据
+            self.b.by_find_element('css','#layui-layer1 > div.layui-layer-content > form > div.middle > div:nth-child(3) > div > input').clear()
+            # 输入姓名数据
+            self.b.by_find_element('css','#layui-layer1 > div.layui-layer-content > form > div.middle > div:nth-child(3) > div > input').send_keys('测试修改')
+            self.addimg()
+            # 获取输入的姓名
+            oldusername = self.b.by_find_element('css',
+                                                '#layui-layer1 > div.layui-layer-content > form > div.middle > div:nth-child(3) > div > input').get_attribute(
+                'value')
+            # 点击确定
+            self.b.by_find_element('css','#layui-layer1 > div.layui-layer-content > form > div.bottom.clear > button.bottom_y.bottom_b3.fl').click()
+            self.addimg()
+            time.sleep(1)
+            # 获取列表第一条数据的姓名
+            newusername = self.b.by_find_element('css','#datagrid-row-r1-2-0 > td:nth-child(1) > div > span').text
+            self.assertTrue(oldusername == newusername,'修改姓名失败')
+            logger.info('用例%s执行成功' % sys._getframe().f_code.co_name)
+        except:
+            logger.exception('用例%s执行失败' % sys._getframe().f_code.co_name)
+            raise
+
+    def test_yhlb_at_039(self):
+        """用户列表界面——编辑界面：用户类型修改"""
+        try:
+            logger.info('开始执行用例%s' % sys._getframe().f_code.co_name)
+            if self.b.isElementExist('xpath',
+                                     '//*[@id="datagrid-row-r1-1-0"]/td[4]/div') == False:  # 判断列表内是否有用户，如果没有就创建用户
+                # 输入正确用户名密码等数据
+                    self.b.by_find_element('css', 'a.easyui-linkbutton:nth-child(1)').click()
+                    self.b.by_find_element('name', 'account').send_keys('admin1')
+                    self.b.by_find_element('name', 'password').send_keys('123456')
+                    self.b.by_find_element('name', 'username').send_keys('测试用户')
+                    self.b.by_find_element('xpath',
+                                               '//*[@id="layui-layer1"]/div[2]/form/div[2]/button[1]').click()
+            # 点击第一条数据后的编辑按钮
+            self.b.by_find_element('css','#datagrid-row-r1-2-0 > td:nth-child(7) > div > span > a:nth-child(1)').click()
+            self.addimg()
+            # 点击管理员单选框数据
+            self.b.by_find_element('css','#layui-layer1 > div.layui-layer-content > form > div.middle > div:nth-child(7) > div > span:nth-child(1) > input[type=radio]').click()
+            # 获取管理员数据
+            oldtype = self.b.by_find_element('css',
+                                                '#layui-layer1 > div.layui-layer-content > form > div.middle > div:nth-child(7) > div > span:nth-child(1)').text
+            # 点击确定
+            self.b.by_find_element('css','#layui-layer1 > div.layui-layer-content > form > div.bottom.clear > button.bottom_y.bottom_b3.fl').click()
+            self.addimg()
+            time.sleep(1)
+            newtype = self.b.by_find_element('css','#datagrid-row-r1-2-0 > td:nth-child(6) > div > span').text
+            self.assertTrue(oldtype == newtype,'修改姓名失败')
+            logger.info('用例%s执行成功' % sys._getframe().f_code.co_name)
+        except:
+            logger.exception('用例%s执行失败' % sys._getframe().f_code.co_name)
+            raise
+
+    def test_yhlb_at_040(self):
+        """用户列表界面——编辑界面：欢迎词修改"""
+        try:
+            logger.info('开始执行用例%s' % sys._getframe().f_code.co_name)
+            if self.b.isElementExist('xpath',
+                                     '//*[@id="datagrid-row-r1-1-0"]/td[4]/div') == False:  # 判断列表内是否有用户，如果没有就创建用户
+                # 输入正确用户名密码等数据
+                    self.b.by_find_element('css', 'a.easyui-linkbutton:nth-child(1)').click()
+                    self.b.by_find_element('name', 'account').send_keys('admin1')
+                    self.b.by_find_element('name', 'password').send_keys('123456')
+                    self.b.by_find_element('name', 'username').send_keys('测试用户')
+                    self.b.by_find_element('xpath',
+                                               '//*[@id="layui-layer1"]/div[2]/form/div[2]/button[1]').click()
+            # 点击第一条数据后的编辑按钮
+            self.b.by_find_element('css','#datagrid-row-r1-2-0 > td:nth-child(7) > div > span > a:nth-child(1)').click()
+            self.addimg()
+            # 情况欢迎词数据
+            self.b.by_find_element('css','#layui-layer1 > div.layui-layer-content > form > div.middle > div:nth-child(9) > div > textarea').clear()
+            # 情况欢迎词数据
+            self.b.by_find_element('css','#layui-layer1 > div.layui-layer-content > form > div.middle > div:nth-child(9) > div > textarea').send_keys('测试欢迎词')
+            # 获取欢迎词数据
+            oldGreeting = self.b.by_find_element('css',
+                                                '#layui-layer1 > div.layui-layer-content > form > div.middle > div:nth-child(9) > div > textarea').get_attribute('value')
+            # 点击确定
+            self.b.by_find_element('css','#layui-layer1 > div.layui-layer-content > form > div.bottom.clear > button.bottom_y.bottom_b3.fl').click()
+            self.addimg()
+            time.sleep(1)
+            newGreeting = self.b.by_find_element('css','#datagrid-row-r1-2-0 > td:nth-child(5) > div > span').text
+            self.assertTrue(oldGreeting == newGreeting,'修改欢迎词失败')
+            logger.info('用例%s执行成功' % sys._getframe().f_code.co_name)
+        except:
+            logger.exception('用例%s执行失败' % sys._getframe().f_code.co_name)
             raise
     # 逻辑较为复杂
     # def test_yhlb_at_016(self):
@@ -948,25 +1244,12 @@ class Test_UserList(unittest.TestCase):
     #         logger.info('用例%s执行失败' % sys._getframe().f_code.co_name)
     #         raise
 
-    def test_xinzengshuju(self):
-        """新增数据"""
-        for i in range(1, 30):
-            if i % 2:
-                self.b.by_find_element('class', 'l-btn-text').click()
-                self.b.by_find_element('name', 'account').send_keys('admin%s' % i)
-                self.b.by_find_element('name', 'password').send_keys('123456')
-                self.b.by_find_element('name', 'username').send_keys('测试用户')
-                self.b.by_find_element('xpath', '//*[@id="layui-layer%s"]/div[2]/form/div[2]/button[1]' % i).click()
-                time.sleep(1)
-            else:
-                continue
-
 
 if __name__ == '__main__':
-    # suit1 = unittest.TestLoader().loadTestsFromTestCase(Test_UserList)
+    suit1 = unittest.TestLoader().loadTestsFromTestCase(Test_UserList)
     suit = unittest.TestSuite()
-    # suit.addTest(suit1)
-    suit.addTest(Test_UserList('test_yhlb_at_032'))
+    suit.addTest(suit1)
+    # suit.addTest(Test_UserList('test_yhlb_at_040'))
     runer = HTMLTestRunner(title="带截图的测试报告", description="小试牛刀", stream=open("sample_test_report.html", "wb"),
                            verbosity=2,
                            )
