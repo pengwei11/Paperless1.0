@@ -1,0 +1,22 @@
+2019-09-18 16:03:35,588 - INFO - 选择的浏览器为:Google Chrome浏览器
+2019-09-18 16:03:41,139 - INFO - 启动谷歌浏览器
+2019-09-18 16:03:41,797 - INFO - 进入172.16.19.219
+2019-09-18 16:03:41,827 - INFO - 最大化浏览器
+2019-09-18 16:03:41,839 - INFO - 5秒隐形等待时间
+2019-09-18 16:03:55,751 - ERROR - 请检查定位方式或元素
+Traceback (most recent call last):
+  File "E:\Paperless1.0\tools\common\BrowserDriver.py", line 245, in by_find_element
+    return self.driver.find_element_by_css_selector(loc[1])
+  File "C:\Users\pengw\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 589, in find_element_by_css_selector
+    return self.find_element(by=By.CSS_SELECTOR, value=css_selector)
+  File "C:\Users\pengw\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 955, in find_element
+    'value': value})['value']
+  File "C:\Users\pengw\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 312, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\pengw\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"css selector","selector":".tooltip-content"}
+  (Session info: chrome=75.0.3770.80)
+  (Driver info: chromedriver=75.0.3770.8 (681f24ea911fe754973dda2fdc6d2a2e159dd300-refs/branch-heads/3770@{#40}),platform=Windows NT 6.1.7601 SP1 x86_64)
+
+2019-09-18 16:03:55,962 - INFO - 关闭浏览器

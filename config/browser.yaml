@@ -1,0 +1,19 @@
+# 浏览器选择
+Browser:
+  browser: Google Chrome
+  browser1: FireFox
+
+# 访问网址
+pathUrl:
+  URL: 172.16.45.5
+
+# 登陆用户名和密码
+User:
+  username: admin
+  password: admin
+
+Moudle:
+  moudle: 全部
+  moudle1: 登录模块
+  moudle2: 会议信息模块
+  moudle3: 会议资料模块
