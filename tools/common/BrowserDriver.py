@@ -17,6 +17,7 @@ from selenium.webdriver.common.action_chains import ActionChains   # 鼠标操�
 from selenium.webdriver.chrome.options import Options
 from selenium.common.exceptions import *   # 导入所有异常类
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait   # 显性等待时间
 from selenium.webdriver.common.by import By
 

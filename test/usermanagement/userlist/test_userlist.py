@@ -79,7 +79,7 @@ class Test_UserList(unittest.TestCase):
             self.assertEqual('删除', self.b.by_find_element('xpath', '//*[@id="common_operate"]/a[4]/span/span[1]').text)
             logger.info('用例%s执行成功' % sys._getframe().f_code.co_name)
         except:
-            logger.info('用例%s执行失败' % sys._getframe().f_code.co_name)
+            logger.exception('用例%s执行失败' % sys._getframe().f_code.co_name)
             raise
 
     def test_yhlb_at_02(self):
@@ -117,7 +117,7 @@ class Test_UserList(unittest.TestCase):
                             '勾选框不存在')
             logger.info('用例%s执行成功' % sys._getframe().f_code.co_name)
         except:
-            logger.info('用例%s执行失败' % sys._getframe().f_code.co_name)
+            logger.exception('用例%s执行失败' % sys._getframe().f_code.co_name)
             raise
 
     def test_yhlb_at_03(self):
@@ -185,7 +185,7 @@ class Test_UserList(unittest.TestCase):
 
             logger.info('用例%s执行成功' % sys._getframe().f_code.co_name)
         except:
-            logger.info('用例%s执行失败' % sys._getframe().f_code.co_name)
+            logger.exception('用例%s执行失败' % sys._getframe().f_code.co_name)
             raise
 
     def test_yhlb_at_04(self):
@@ -239,7 +239,7 @@ class Test_UserList(unittest.TestCase):
             self.addimg()
             logger.info('用例%s执行成功' % sys._getframe().f_code.co_name)
         except:
-            logger.info('用例%s执行失败' % sys._getframe().f_code.co_name)
+            logger.exception('用例%s执行失败' % sys._getframe().f_code.co_name)
             raise
 
     def test_yhlb_at_05(self):
@@ -256,7 +256,7 @@ class Test_UserList(unittest.TestCase):
             self.assertTrue(len(List) <= 10, '超出10条数据')
             logger.info('用例%s执行成功' % sys._getframe().f_code.co_name)
         except:
-            logger.info('用例%s执行失败' % sys._getframe().f_code.co_name)
+            logger.exception('用例%s执行失败' % sys._getframe().f_code.co_name)
             raise
 
     def test_yhlb_at_06(self):
@@ -265,6 +265,7 @@ class Test_UserList(unittest.TestCase):
         try:
             logger.info('开始执行用例%s' % sys._getframe().f_code.co_name)
             Select(self.b.by_find_element('css', '.pagination-page-list')).select_by_visible_text('20')
+            time.sleep(1)
             self.addimg()
             List = []
             for l in self.b.by_find_elements('css', '.datagrid-cell-rownumber'):
@@ -272,7 +273,7 @@ class Test_UserList(unittest.TestCase):
             self.assertTrue(len(List) <= 20, '超出20条数据')
             logger.info('用例%s执行成功' % sys._getframe().f_code.co_name)
         except:
-            logger.info('用例%s执行失败' % sys._getframe().f_code.co_name)
+            logger.exception('用例%s执行失败' % sys._getframe().f_code.co_name)
             raise
 
     def test_yhlb_at_07(self):
@@ -281,6 +282,7 @@ class Test_UserList(unittest.TestCase):
         try:
             logger.info('开始执行用例%s' % sys._getframe().f_code.co_name)
             Select(self.b.by_find_element('css', '.pagination-page-list')).select_by_visible_text('50')
+            time.sleep(1)
             self.addimg()
             List = []
             for l in self.b.by_find_elements('css', '.datagrid-cell-rownumber'):
@@ -288,7 +290,7 @@ class Test_UserList(unittest.TestCase):
             self.assertTrue(len(List) <= 50, '超出50条数据')
             logger.info('用例%s执行成功' % sys._getframe().f_code.co_name)
         except:
-            logger.info('用例%s执行失败' % sys._getframe().f_code.co_name)
+            logger.exception('用例%s执行失败' % sys._getframe().f_code.co_name)
             raise
 
     def test_yhlb_at_08(self):
@@ -297,6 +299,7 @@ class Test_UserList(unittest.TestCase):
         try:
             logger.info('开始执行用例%s' % sys._getframe().f_code.co_name)
             Select(self.b.by_find_element('css', '.pagination-page-list')).select_by_visible_text('100')
+            time.sleep(1)
             self.addimg()
             List = []
             for l in self.b.by_find_elements('css', '.datagrid-cell-rownumber'):
@@ -304,7 +307,7 @@ class Test_UserList(unittest.TestCase):
             self.assertTrue(len(List) <= 100, '超出100条数据')
             logger.info('用例%s执行成功' % sys._getframe().f_code.co_name)
         except:
-            logger.info('用例%s执行失败' % sys._getframe().f_code.co_name)
+            logger.exception('用例%s执行失败' % sys._getframe().f_code.co_name)
             raise
 
     def test_yhlb_at_09(self):
@@ -320,15 +323,14 @@ class Test_UserList(unittest.TestCase):
                 self.b.by_find_element('name', 'username').send_keys('测试用户')
                 self.b.by_find_element('xpath', '//*[@id="layui-layer1"]/div[2]/form/div[2]/button[1]').click()  # 点击保存
             # 点击首页图标
-            self.b.by_find_element('xpath',
-                                   '//*[@id="wrap"]/div/div[3]/div[2]/div/div[2]/div/div/div[3]/table/tbody/tr/td[3]/a/span/span[2]').click()
+            self.b.by_find_element('css', '.pagination-first').click()
             self.addimg()
             # 断言跳转框内数字是否为1
             self.assertTrue(self.b.by_find_element('css', 'input.pagination-num').get_attribute('value') == '1',
                             '回到首页失败')
             logger.info('用例%s执行成功' % sys._getframe().f_code.co_name)
         except:
-            logger.info('用例%s执行失败' % sys._getframe().f_code.co_name)
+            logger.exception('用例%s执行失败' % sys._getframe().f_code.co_name)
             raise
 
     def test_yhlb_at_010(self):
@@ -336,56 +338,71 @@ class Test_UserList(unittest.TestCase):
         # 点击尾页图标，需要前往最后一页数据
         try:
             logger.info('开始执行用例%s' % sys._getframe().f_code.co_name)
-            self.b.by_find_element('xpath',
-                                   '//*[@id="wrap"]/div/div[3]/div[2]/div/div[2]/div/div/div[3]/table/tbody/tr/td[11]/a/span/span[2]').click()
-            List = []
-            for l in self.b.by_find_elements('css', '.datagrid-cell-rownumber'):
-                List.append(l)
-            self.addimg()
-            self.assertTrue(len(List) <= 10, '前往尾页失败')
+            self.b.by_find_element('css',  '.pagination-last').click()
+            # 获取总页数
+            count = self.b.by_find_element('css',
+                                           '#wrap > div > div.matter.clear > div.right_w.fr.clear > div > div.sheet > div > div > div.datagrid-pager.pagination > table > tbody > tr > td:nth-child(8) > span').text
+            # 截取共X页中的数字
+            count = count[1:-1]
+            # 获取跳转框内的数字
+            sum1 = self.b.by_find_element('css', 'input.pagination-num').get_attribute('value')
+            # # 断言共X页是否等于跳转框内的数字
+            self.assertTrue(count == sum1, '前往尾页失败')
             logger.info('用例%s执行成功' % sys._getframe().f_code.co_name)
         except:
-            logger.info('用例%s执行失败' % sys._getframe().f_code.co_name)
+            logger.exception('用例%s执行失败' % sys._getframe().f_code.co_name)
             raise
 
     def test_yhlb_at_011(self):
-        """用户列表界面——下一页图标点击图标点击"""
+        """用户列表界面——下一页图标点击"""
         # 点击下一页图标，需要回到下一页数据
         try:
             logger.info('开始执行用例%s' % sys._getframe().f_code.co_name)
             # 获取页码输入框的数据
             sum1 = self.b.by_find_element('css', 'input.pagination-num').get_attribute('value')
-            self.b.by_find_element('xpath',
-                                   '//*[@id="wrap"]/div/div[3]/div[2]/div/div[2]/div/div/div[3]/table/tbody/tr/td[10]/a/span/span[2]').click()
+            # 点击下一页
+            self.b.by_find_element('css', '.pagination-next').click()
             self.addimg()
+            # 获取点击下一页后的输入框数据
             sum2 = self.b.by_find_element('css', 'input.pagination-num').get_attribute('value')
-            if sum2 == sum1:
+            # 获取总页数
+            count = self.b.by_find_element('css',
+                                           '#wrap > div > div.matter.clear > div.right_w.fr.clear > div > div.sheet > div > div > div.datagrid-pager.pagination > table > tbody > tr > td:nth-child(8) > span').text
+            # 截取共X页中的数字
+            count = count[1:-1]
+            if count == '1' or count == '0':
                 self.assertTrue(sum1 == sum2, '点击下一页失败')
             else:
                 self.assertTrue(int(sum2) == int(sum1) + 1, '点击下一页失败')
             logger.info('用例%s执行成功' % sys._getframe().f_code.co_name)
         except:
-            logger.info('用例%s执行失败' % sys._getframe().f_code.co_name)
+            logger.exception('用例%s执行失败' % sys._getframe().f_code.co_name)
             raise
 
     def test_yhlb_at_012(self):
-        """用户列表界面——上一页图标点击图标点击"""
+        """用户列表界面——上一页图标点击"""
         # 点击上一页图标，需要回到上一页数据
         try:
             logger.info('开始执行用例%s' % sys._getframe().f_code.co_name)
             # 获取页码输入框的数据
             sum1 = self.b.by_find_element('css', 'input.pagination-num').get_attribute('value')
-            self.b.by_find_element('xpath',
-                                   '//*[@id="wrap"]/div/div[3]/div[2]/div/div[2]/div/div/div[3]/table/tbody/tr/td[4]/a/span/span[2]').click()
+            # 点击上一页
+            self.b.by_find_element('css', '.pagination-prev').click()
             self.addimg()
+            # 点击上一页后获取输入框的数据
             sum2 = self.b.by_find_element('css', 'input.pagination-num').get_attribute('value')
-            if sum2 == sum1:
+            # 获取总页数
+            count = self.b.by_find_element('css',
+                                           '#wrap > div > div.matter.clear > div.right_w.fr.clear > div > div.sheet > div > div > div.datagrid-pager.pagination > table > tbody > tr > td:nth-child(8) > span').text
+            # 截取共X页中的数字
+            count = count[1:-1]
+            if count == '1':
                 self.assertTrue(sum1 == sum2, '点击上一页失败')
             else:
-                self.assertTrue(int(sum2) == int(sum1 - 1), '点击上一页失败')
+                self.assertTrue(int(sum2) == (int(sum1)-1), '点击上一页失败')
             logger.info('用例%s执行成功' % sys._getframe().f_code.co_name)
         except:
-            logger.info('用例%s执行失败' % sys._getframe().f_code.co_name)
+            logger.exception('用例%s执行失败' % sys._getframe().f_code.co_name)
             raise
 
     def test_yhlb_at_013(self):
@@ -404,9 +421,9 @@ class Test_UserList(unittest.TestCase):
                                  '共0页', '用户列表无数据，总页数显示错误')
             else:
                 raise AssertionError('用户列表数据不为空，用例无法执行')
-            logger.info('用例%s执行失败' % sys._getframe().f_code.co_name)
+            logger.exception('用例%s执行失败' % sys._getframe().f_code.co_name)
         except:
-            logger.info('用例%s执行失败' % sys._getframe().f_code.co_name)
+            logger.exception('用例%s执行失败' % sys._getframe().f_code.co_name)
             raise
 
     def test_yhlb_at_014(self):
@@ -428,7 +445,7 @@ class Test_UserList(unittest.TestCase):
                 raise AssertionError('列表无数据或总数据大于每页数据')
             logger.info('用例%s执行成功' % sys._getframe().f_code.co_name)
         except:
-            logger.info('用例%s执行失败' % sys._getframe().f_code.co_name)
+            logger.exception('用例%s执行失败' % sys._getframe().f_code.co_name)
             raise
 
     def test_yhlb_at_015(self):
@@ -457,7 +474,7 @@ class Test_UserList(unittest.TestCase):
                 raise AssertionError('列表无数据或总数据小于每页数据')
             logger.info('用例%s执行成功' % sys._getframe().f_code.co_name)
         except:
-            logger.info('用例%s执行失败' % sys._getframe().f_code.co_name)
+            logger.exception('用例%s执行失败' % sys._getframe().f_code.co_name)
             raise
 
     def test_yhlb_at_016(self):
@@ -469,7 +486,7 @@ class Test_UserList(unittest.TestCase):
             self.assertEqual('新增用户', self.b.by_find_element('css', '.layui-layer-title').text, '新增用户界面错误')
             logger.info('用例%s执行成功' % sys._getframe().f_code.co_name)
         except:
-            logger.info('用例%s执行失败' % sys._getframe().f_code.co_name)
+            logger.exception('用例%s执行失败' % sys._getframe().f_code.co_name)
             raise
 
     def test_yhlb_at_017(self):
@@ -496,7 +513,7 @@ class Test_UserList(unittest.TestCase):
             self.assertTrue(account == '输入内容长度必须介于5和20之间', '长度低于2字符限制无提示')
             logger.info('用例%s执行成功' % sys._getframe().f_code.co_name)
         except:
-            logger.info('用例%s执行失败' % sys._getframe().f_code.co_name)
+            logger.exception('用例%s执行失败' % sys._getframe().f_code.co_name)
             raise
 
     def test_yhlb_at_018(self):
@@ -553,7 +570,7 @@ class Test_UserList(unittest.TestCase):
                              '输入不能为空')
             logger.info('用例%s执行成功' % sys._getframe().f_code.co_name)
         except:
-            logger.info('用例%s执行失败' % sys._getframe().f_code.co_name)
+            logger.exception('用例%s执行失败' % sys._getframe().f_code.co_name)
             raise
 
     def test_yhlb_at_019(self):
@@ -572,7 +589,7 @@ class Test_UserList(unittest.TestCase):
             self.assertEqual(self.b.by_find_element('css', '.layui-layer-padding').text, '该帐号已存在！', '账号同名')
             logger.info('用例%s执行成功' % sys._getframe().f_code.co_name)
         except:
-            logger.info('用例%s执行失败' % sys._getframe().f_code.co_name)
+            logger.exception('用例%s执行失败' % sys._getframe().f_code.co_name)
             raise
 
     def test_yhlb_at_020(self):
@@ -600,7 +617,7 @@ class Test_UserList(unittest.TestCase):
             self.assertTrue(account == '输入内容长度必须介于6和18之间', '长度低于2字符限制无提示')
             logger.info('用例%s执行成功' % sys._getframe().f_code.co_name)
         except:
-            logger.info('用例%s执行失败' % sys._getframe().f_code.co_name)
+            logger.exception('用例%s执行失败' % sys._getframe().f_code.co_name)
             raise
 
     def test_yhlb_at_021(self):
@@ -629,7 +646,7 @@ class Test_UserList(unittest.TestCase):
                              '输入为空，无提示')
             logger.info('用例%s执行成功' % sys._getframe().f_code.co_name)
         except:
-            logger.info('用例%s执行失败' % sys._getframe().f_code.co_name)
+            logger.exception('用例%s执行失败' % sys._getframe().f_code.co_name)
             raise
 
     def test_yhlb_at_022(self):
@@ -647,7 +664,7 @@ class Test_UserList(unittest.TestCase):
             self.assertTrue(len(account) == 20, '长度超出20字符限制')
             logger.info('用例%s执行成功' % sys._getframe().f_code.co_name)
         except:
-            logger.info('用例%s执行失败' % sys._getframe().f_code.co_name)
+            logger.exception('用例%s执行失败' % sys._getframe().f_code.co_name)
             raise
 
     def test_yhlb_at_023(self):
@@ -663,7 +680,7 @@ class Test_UserList(unittest.TestCase):
                              '输入不能为空')
             logger.info('用例%s执行成功' % sys._getframe().f_code.co_name)
         except:
-            logger.info('用例%s执行失败' % sys._getframe().f_code.co_name)
+            logger.exception('用例%s执行失败' % sys._getframe().f_code.co_name)
             raise
 
     def test_yhlb_at_024(self):
@@ -692,7 +709,7 @@ class Test_UserList(unittest.TestCase):
             self.assertTrue('管理员' and '秘书' and '普通用户' and '  后勤人员' in radios, '用户类型错误')
             logger.info('用例%s执行成功' % sys._getframe().f_code.co_name)
         except:
-            logger.info('用例%s执行失败' % sys._getframe().f_code.co_name)
+            logger.exception('用例%s执行失败' % sys._getframe().f_code.co_name)
             raise
 
     def test_yhlb_at_025(self):
@@ -708,7 +725,7 @@ class Test_UserList(unittest.TestCase):
                              '默认提示错误')
             logger.info('用例%s执行成功' % sys._getframe().f_code.co_name)
         except:
-            logger.info('用例%s执行失败' % sys._getframe().f_code.co_name)
+            logger.exception('用例%s执行失败' % sys._getframe().f_code.co_name)
             raise
 
     def test_yhlb_at_026(self):
@@ -731,7 +748,7 @@ class Test_UserList(unittest.TestCase):
             self.assertTrue(len(self.b.by_find_element('name', 'salutatory').get_attribute('value')) == 200, '字符超出限制')
             logger.info('用例%s执行成功' % sys._getframe().f_code.co_name)
         except:
-            logger.info('用例%s执行失败' % sys._getframe().f_code.co_name)
+            logger.exception('用例%s执行失败' % sys._getframe().f_code.co_name)
             raise
 
     def test_yhlb_at_027(self):
@@ -773,7 +790,7 @@ class Test_UserList(unittest.TestCase):
             self.addimg()
             logger.info('用例%s执行成功' % sys._getframe().f_code.co_name)
         except:
-            logger.info('用例%s执行失败' % sys._getframe().f_code.co_name)
+            logger.exception('用例%s执行失败' % sys._getframe().f_code.co_name)
             raise
 
     def test_yhlb_at_028(self):
@@ -793,7 +810,7 @@ class Test_UserList(unittest.TestCase):
                              '账号输入为空，无提示')
             logger.info('用例%s执行成功' % sys._getframe().f_code.co_name)
         except:
-            logger.info('用例%s执行失败' % sys._getframe().f_code.co_name)
+            logger.exception('用例%s执行失败' % sys._getframe().f_code.co_name)
             raise
 
     def test_yhlb_at_029(self):
@@ -813,7 +830,7 @@ class Test_UserList(unittest.TestCase):
                              '账号输入为空，无提示')
             logger.info('用例%s执行成功' % sys._getframe().f_code.co_name)
         except:
-            logger.info('用例%s执行失败' % sys._getframe().f_code.co_name)
+            logger.exception('用例%s执行失败' % sys._getframe().f_code.co_name)
             raise
 
     def test_yhlb_at_030(self):
@@ -834,7 +851,7 @@ class Test_UserList(unittest.TestCase):
                              '账号输入为空，无提示')
             logger.info('用例%s执行成功' % sys._getframe().f_code.co_name)
         except:
-            logger.info('用例%s执行失败' % sys._getframe().f_code.co_name)
+            logger.exception('用例%s执行失败' % sys._getframe().f_code.co_name)
             raise
 
 
@@ -868,7 +885,7 @@ class Test_UserList(unittest.TestCase):
                     self.assertTrue(account in List,'用户新建失败')
             logger.info('用例%s执行成功' % sys._getframe().f_code.co_name)
         except:
-            logger.info('用例%s执行失败' % sys._getframe().f_code.co_name)
+            logger.exception('用例%s执行失败' % sys._getframe().f_code.co_name)
             raise
 
     def test_yhlb_at_032(self):
@@ -1241,7 +1258,7 @@ class Test_UserList(unittest.TestCase):
     #             self.assertTrue('ad' in List,'帐号搜索错误')
     #         logger.info('用例%s执行成功' % sys._getframe().f_code.co_name)
     #     except:
-    #         logger.info('用例%s执行失败' % sys._getframe().f_code.co_name)
+    #         logger.exception('用例%s执行失败' % sys._getframe().f_code.co_name)
     #         raise
 
 
