@@ -40,11 +40,11 @@ class BrowserDriver(object):
         打开浏览器，从Browser.yaml文件中读取浏览器和网址
         :return:
         '''
-        # browser = self.sc.getReadIP('browser')  # 从tkinter中的输入框获取浏览器类型
-        browser = self.sc.getConfig('Browser').get('browser')   # 从Browser.yaml文件中获取浏览器类型
+        browser = self.sc.getReadIP('browser')  # 从tkinter中的输入框获取浏览器类型
+        # browser = self.sc.getConfig('Browser').get('browser')   # 从Browser.yaml文件中获取浏览器类型
         logger.info("选择的浏览器为:%s浏览器"%browser)
-        # url = self.sc.getReadIP('ip')   # 从tkinter中的输入框获取浏览器地址
-        url = self.sc.getConfig('pathUrl').get('URL') # 从Browser.yaml文件中获取网址
+        url = self.sc.getReadIP('ip')   # 从tkinter中的输入框获取浏览器地址
+        # url = self.sc.getConfig('pathUrl').get('URL') # 从Browser.yaml文件中获取网址
         if browser == 'Google Chrome':
             option = Options()
             option.add_experimental_option('w3c', False)
