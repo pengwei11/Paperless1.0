@@ -6,6 +6,6 @@
 @contact: 1249294960@qq.com
 @software: pengwei
 @file: __init__.py.py
-@time: 2019/9/23 15:40
-@desc: 会议列表
+@time: 2019/9/26 11:22
+@desc: 铭牌设置
 '''

@@ -396,7 +396,7 @@ class Test_UserList(unittest.TestCase):
                                            '#wrap > div > div.matter.clear > div.right_w.fr.clear > div > div.sheet > div > div > div.datagrid-pager.pagination > table > tbody > tr > td:nth-child(8) > span').text
             # 截取共X页中的数字
             count = count[1:-1]
-            if count == '1':
+            if count == '1' or count == '0':
                 self.assertTrue(sum1 == sum2, '点击上一页失败')
             else:
                 self.assertTrue(int(sum2) == (int(sum1)-1), '点击上一页失败')

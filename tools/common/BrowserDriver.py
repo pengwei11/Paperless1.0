@@ -106,6 +106,13 @@ class BrowserDriver(object):
         self.driver.forward()
         logger.info('前进到%s'%self.driver.current_url)
 
+    def refresh(self):
+        '''
+        刷新浏览器
+        :return:
+        '''
+        self.driver.refresh()
+
 
     def js_scroll_top(self):
         '''滚动到顶部'''
@@ -133,7 +140,7 @@ class BrowserDriver(object):
         :return:
         '''
         try:
-            WebDriverWait(self.driver, 30).until(EC.visibility_of(self.driver.find_element(*loc)))
+            WebDriverWait(self.driver, 30).until(EC.visibility_of_element_located(self.driver.find_element(*loc)))
             return self.driver.find_element(*loc)
         except NoSuchElementException:
             logger.exception('找不到元素')
@@ -233,18 +240,25 @@ class BrowserDriver(object):
         '''
         try:
             if loc[0] == 'id' or loc[0] == 'ID':
+                logger.info('使用ID定位:%s' % loc[1])
                 return self.driver.find_element_by_id(loc[1])
             elif loc[0] == 'name' or loc[0] == 'NAME':
+                logger.info('使用NAME定位:%s' % loc[1])
                 return self.driver.find_element_by_name(loc[1])
             elif loc[0] == 'class' or loc[0] == 'CLASS':
+                logger.info('使用CSS定位:%s' % loc[1])
                 return self.driver.find_element_by_class_name(loc[1])
             elif loc[0] == 'xpath' or loc[0] == 'XPATH':
+                logger.info('使用XPATH定位:%s' % loc[1])
                 return self.driver.find_element_by_xpath(loc[1])
             elif loc[0] == 'link_text' or loc[0] == 'LINK_TEXT':
+                logger.info('使用LINK_TEXT定位:%s' % loc[1])
                 return self.driver.find_element_by_link_text(loc[1])
             elif loc[0] == 'css' or loc[0] == 'CSS':
+                logger.info('使用CSS定位:%s' % loc[1])
                 return self.driver.find_element_by_css_selector(loc[1])
             elif loc[0] == 'tag_name' or loc[0] == 'TAG_NAME':
+                logger.info('使用TAG_NAME定位:%s' % loc[1])
                 return self.driver.find_element_by_tag_name(loc[1])
         except:
             logger.exception('请检查定位方式或元素')

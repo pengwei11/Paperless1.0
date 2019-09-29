@@ -31,12 +31,12 @@ UTILS_PATH = os.path.join(BASE_PATH,'utils')
 
 
 # test各个目录下的绝度路径
-WEB_URL_PATH = os.path.join(TEST_PATH,'page','Web_Url.yaml')
-AUTOLT_PATH = os.path.join(TEST_PATH,'Autolt')
-CASE_PATH = os.path.join(TEST_PATH,'case')
-COMMON_PATH = os.path.join(TEST_PATH,'common')
-PAGE_PATH = os.path.join(TEST_PATH,'page')
-SQLCONF_PATH = os.path.join(TEST_PATH,'sqlconf')
+# WEB_URL_PATH = os.path.join(TEST_PATH,'page','Web_Url.yaml')
+# AUTOLT_PATH = os.path.join(TEST_PATH,'Autolt')
+# CASE_PATH = os.path.join(TEST_PATH,'case')
+# COMMON_PATH = os.path.join(TEST_PATH,'common')
+# PAGE_PATH = os.path.join(TEST_PATH,'page')
+# SQLCONF_PATH = os.path.join(TEST_PATH,'sqlconf')
 
 class Config:
 
