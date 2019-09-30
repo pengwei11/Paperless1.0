@@ -146,16 +146,8 @@ class Test_WelcomeScreen(unittest.TestCase):
             self.addimg()
             # 获取界面设计title
             uititle = self.b.by_find_element('css', '.nameplate_nav.clear > span:nth-child(1)').text
-            # 获取铭牌设计title
-            nametitle = self.b.by_find_element('css', '.nameplate_nav.clear > span:nth-child(2)').text
-            # 获取文案设计title
-            documenttitle = self.b.by_find_element('css', '.nameplate_nav.clear > span:nth-child(3)').text
             self.assertEqual('欢迎界面设计', uititle, '欢迎界面设计标题显示错误：%s' % uititle)
-            self.assertEqual('铭牌界面设计', nametitle, '铭牌界面设计标题显示错误：%s' % nametitle)
-            self.assertEqual('文案设计', documenttitle, '文案设计标题显示错误：%s' % documenttitle)
             print('\n欢迎界面设计标题：%s' % uititle)
-            print('铭牌界面设计标题：%s' % nametitle)
-            print('文案设计标题：%s' % documenttitle)
             logger.info('用例%s执行成功' % sys._getframe().f_code.co_name)
         except:
             logger.exception('用例%s执行失败' % sys._getframe().f_code.co_name)

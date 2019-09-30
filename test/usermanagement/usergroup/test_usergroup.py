@@ -351,12 +351,7 @@ class Test_UserGruop(unittest.TestCase):
             self.addimg()
             # 点击下一页后获取输入框的数据
             sum2 = self.b.by_find_element('css', 'input.pagination-num').get_attribute('value')
-            # 获取总页数
-            count = self.b.by_find_element('css',
-                                           '#wrap > div > div.matter.clear > div.right_w.fr.clear > div > div.sheet > div > div > div.datagrid-pager.pagination > table > tbody > tr > td:nth-child(8) > span').text
-            # 截取共X页中的数字
-            count = count[1:-1]
-            if count == '1' or count == '0':
+            if sum1 == '1' or sum1 == '0':
                 self.assertTrue(sum1 == sum2, '点击上一页失败')
             else:
                 self.assertTrue(int(sum2) == (int(sum1)-1), '点击上一页失败')
@@ -622,7 +617,7 @@ class Test_UserGruop(unittest.TestCase):
                 self.assertTrue(number == '共0页','页面无数据，总页数显示共%s页'%numcount)
             elif count > 10:
                 # 计算总页数
-                pages = (count-int(len(List)))/10
+                pages = (count-int(len(List)))/10+1
                 self.assertTrue(int(numcount) == pages, '共%s页,但显示共%s页' % (pages, numcount))
             logger.info('用例%s执行成功' % sys._getframe().f_code.co_name)
         except:
@@ -649,6 +644,11 @@ class Test_UserGruop(unittest.TestCase):
                 count = int(len(List))
             else:
                 count = (sum2 - 1) * int(sum1) + int(len(List))
+
+            # 点击首页图标
+            self.b.by_find_element('css', '.pagination-first').click()
+            time.sleep(1)
+            self.addimg()
 
             # 获取左下角文字
             records = self.b.by_find_element('css','.pagination-info').text

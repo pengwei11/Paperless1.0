@@ -30,7 +30,7 @@ from utils.file_write import YamlWrite
 
 import unittest
 import time
-import os
+import os,re
 import sys
 import random
 
@@ -67,7 +67,7 @@ class Test_PersonneLmanagement(unittest.TestCase):
                     continue
         # 获取共x记录
         self.usercount = self.b.by_find_element('css', '.pagination-info').text
-        self.usercount = self.usercount[8:-2]
+        self.usercount =  re.findall('\d+\.?\d*',self.usercount)[2]
         # 再进入会议列表
         self.b.by_find_element('link_text', '会议列表').click()
         # 获取总页数
@@ -401,6 +401,7 @@ class Test_PersonneLmanagement(unittest.TestCase):
                 self.addimg()
             # 点击首页图标
             self.b.by_find_element('css', '.pagination-first').click()
+            time.sleep(1)
             self.addimg()
             # 断言跳转框内数字是否为1
             self.assertTrue(self.b.by_find_element('css', 'input.pagination-num').get_attribute('value') == '1',
@@ -416,6 +417,8 @@ class Test_PersonneLmanagement(unittest.TestCase):
         try:
             logger.info('开始执行用例%s' % sys._getframe().f_code.co_name)
             self.b.by_find_element('css', '.pagination-last').click()
+            time.sleep(1)
+            self.addimg()
             # 获取总页数
             count = self.b.by_find_element('css',
                                            '#wrap > div > div.matter.clear > div.right_w.fr.clear > div > div.table '
@@ -442,6 +445,7 @@ class Test_PersonneLmanagement(unittest.TestCase):
             sum1 = self.b.by_find_element('css', 'input.pagination-num').get_attribute('value')
             # 点击下一页
             self.b.by_find_element('css', '.pagination-next').click()
+            time.sleep(1)
             self.addimg()
             # 获取点击下一页后的输入框数据
             sum2 = self.b.by_find_element('css', 'input.pagination-num').get_attribute('value')
@@ -470,16 +474,11 @@ class Test_PersonneLmanagement(unittest.TestCase):
             sum1 = self.b.by_find_element('css', 'input.pagination-num').get_attribute('value')
             # 点击上一页
             self.b.by_find_element('css', '.pagination-prev').click()
+            time.sleep(1)
             self.addimg()
             # 点击上一页后获取输入框的数据
             sum2 = self.b.by_find_element('css', 'input.pagination-num').get_attribute('value')
-            # 获取总页数
-            count = self.b.by_find_element('css', '#wrap > div > div.matter.clear > div.right_w.fr.clear > div '
-                                                  '> div.table > div > div > div > div.datagrid-pager.pagination > '
-                                                  'table > tbody > tr > td:nth-child(8) > span').text
-            # 截取共X页中的数字
-            count = count[1:-1]
-            if count == '1' or count == '0':
+            if sum1 == '1' or sum1 == '0':
                 self.assertTrue(sum1 == sum2, '点击上一页失败')
             else:
                 self.assertTrue(int(sum2) == (int(sum1)-1), '点击上一页失败')
@@ -604,7 +603,7 @@ class Test_PersonneLmanagement(unittest.TestCase):
                 self.assertTrue(number == '共0页', '页面无数据，总页数显示共%s页'%numcount)
             elif count > 10:
                 # 计算总页数
-                pages = (count-int(len(List)))/10
+                pages = (count-int(len(List)))/10+1
                 self.assertTrue(int(numcount) == pages, '共%s页,但显示共%s页' % (pages, numcount))
             elif count <= 10:
                 self.assertTrue(int(numcount) == 1, '共1页,但显示共%s页' % numcount)
@@ -620,6 +619,7 @@ class Test_PersonneLmanagement(unittest.TestCase):
             # 获取每页数据量,默认为10条/页
             sum1 = Select(self.b.by_find_element('css', '.pagination-page-list')).all_selected_options[0].text
             self.b.by_find_element('css', '.pagination-last').click()  # 点击尾页
+            time.sleep(1)
             self.addimg()
             List = []
             # 获取最后一页数据
@@ -632,6 +632,11 @@ class Test_PersonneLmanagement(unittest.TestCase):
                 count = int(len(List))
             else:
                 count = (sum2 - 1) * int(sum1) + int(len(List))
+
+            # 点击首页图标
+            self.b.by_find_element('css', '.pagination-first').click()
+            time.sleep(1)
+            self.addimg()
 
             # 获取左下角文字
             records = self.b.by_find_element('css','.pagination-info').text

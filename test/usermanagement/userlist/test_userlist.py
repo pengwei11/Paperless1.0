@@ -391,12 +391,7 @@ class Test_UserList(unittest.TestCase):
             self.addimg()
             # 点击上一页后获取输入框的数据
             sum2 = self.b.by_find_element('css', 'input.pagination-num').get_attribute('value')
-            # 获取总页数
-            count = self.b.by_find_element('css',
-                                           '#wrap > div > div.matter.clear > div.right_w.fr.clear > div > div.sheet > div > div > div.datagrid-pager.pagination > table > tbody > tr > td:nth-child(8) > span').text
-            # 截取共X页中的数字
-            count = count[1:-1]
-            if count == '1' or count == '0':
+            if sum1 == '1' or sum1 == '0':
                 self.assertTrue(sum1 == sum2, '点击上一页失败')
             else:
                 self.assertTrue(int(sum2) == (int(sum1)-1), '点击上一页失败')
